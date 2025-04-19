@@ -119,6 +119,7 @@ function Dashboard() {
   const handleSaveProduct = async (product: RecommendationResponse['products'][0]) => {
     try {
       setSavingProduct(product.name);
+      setError(''); // Clear any previous errors
       
       // Check if product is already saved
       if (isProductSaved(product.name)) {
@@ -131,7 +132,8 @@ function Dashboard() {
       if (userError) throw userError;
       if (!user) throw new Error('No user found');
 
-      const { error } = await supabase
+      // Insert the product into saved_products table
+      const { error: insertError } = await supabase
         .from('saved_products')
         .insert([
           {
@@ -139,18 +141,21 @@ function Dashboard() {
             product_name: product.name,
             product_description: product.description,
             product_reason: product.why,
-            product_rating:product.rating,
-            
-            
+            product_rating: product.rating,
+            created_at: new Date().toISOString()
           }
         ]);
 
-      if (error) throw error;
+      if (insertError) throw insertError;
       
-      // Refresh saved products
+      // Refresh saved products list
       await loadSavedProducts();
+      
+      // Show success message or notification (optional)
+      setError('Product saved successfully!');
   
     } catch (err) {
+      console.error('Save product error:', err);
       setError(err instanceof Error ? err.message : 'Failed to save product');
     } finally {
       setSavingProduct(null);
