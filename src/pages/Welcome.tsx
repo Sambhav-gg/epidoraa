@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, ChevronRight, Shield, Sparkles, Users, Droplet, Sun, Wind, Plane as Plant, Microscope, Activity } from 'lucide-react';
-
+import { Footer } from '../components/Footer';
 const Welcome = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
