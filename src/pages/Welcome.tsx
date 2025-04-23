@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, ChevronRight, Shield, Sparkles, Users, Droplet, Sun, Wind, Plane as Plant, Microscope, Activity } from 'lucide-react';
+import { Footer } from '../components/Footer';
 
 const Welcome = () => {
   return (
@@ -181,6 +182,9 @@ const Welcome = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </div>
   );
